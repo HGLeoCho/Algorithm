@@ -47,4 +47,13 @@ def twoSum(nums: list[int], target: int) -> list[int]:
 list1 = [1,2,6,11,4,7]
 target1 = 9
 
-print(twoSum(list1,target1))
+print(twoSum(list1,target1))\
+
+
+'''
+Runtime: 4881 ms, faster than 12.21% of Python3 online submissions for Two Sum.
+Memory Usage: 14.7 MB, less than 92.31% of Python3 online submissions for Two Sum.
+Time Submitted      Status          Runtime     Memory      Language
+11/22/2021 01:41	Accepted	    4881 ms	    14.7 MB	    python3
+11/22/2021 01:38	Wrong Answer	N/A	        N/A	        python3
+'''
