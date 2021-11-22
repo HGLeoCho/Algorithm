@@ -1,4 +1,4 @@
-#Algorithm Practice
+# Algorithm Practice
 
 this repo is to upload my practice towards algorithm
 
