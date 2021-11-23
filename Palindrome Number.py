@@ -36,3 +36,20 @@ Constraints:
 
 Follow up: Could you solve it without converting the integer to a string?
 '''
+
+# initial solution with string
+x = '123'
+print(x[0],x[-2],x[-1])
+print(x[::-1])
+exit()
+
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        stringX = str(x)
+        if len(stringX) < 2:
+            return True
+        else:
+            for i in range(len(stringX)//2):
+                if stringX[i] != stringX[-(i+1)]:
+                    return False
+            return True
