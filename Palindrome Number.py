@@ -38,10 +38,6 @@ Follow up: Could you solve it without converting the integer to a string?
 '''
 
 # initial solution with string
-x = '123'
-print(x[0],x[-2],x[-1])
-print(x[::-1])
-exit()
 
 class Solution:
     def isPalindrome(self, x: int) -> bool:
