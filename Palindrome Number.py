@@ -49,3 +49,9 @@ class Solution:
                 if stringX[i] != stringX[-(i+1)]:
                     return False
             return True
+     
+# BEST solution with string
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if str(x)[::-1] == str(x):
+            return True   
