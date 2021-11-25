@@ -49,6 +49,9 @@ class Solution:
                 if stringX[i] != stringX[-(i+1)]:
                     return False
             return True
+'''
+Accepted	97 ms	14.2 MB	python3
+'''
      
 # BEST solution with string
 class Solution2:
@@ -58,7 +61,7 @@ class Solution2:
 
 # my solution without string usage
 class Solution3:
-        def isPalindrome(self, x: int) -> bool:
+    def isPalindrome(self, x: int) -> bool:
         numbers = []
         keeplooping = True
         increment = 10
@@ -78,9 +81,15 @@ class Solution3:
             return True
         else:
             return False
-        
+'''
+Accepted	68 ms	14.3 MB	python3
+'''
 p = Solution3()
 print(p.isPalindrome(10022201))  
 print(p.isPalindrome(0))
 print(p.isPalindrome(2))
 print(p.isPalindrome(31213))
+
+# Best Solution without using string
+class Solution4:
+    
