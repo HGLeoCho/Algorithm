@@ -78,3 +78,9 @@ class Solution3:
             return True
         else:
             return False
+        
+p = Solution3()
+print(p.isPalindrome(10022201))  
+print(p.isPalindrome(0))
+print(p.isPalindrome(2))
+print(p.isPalindrome(31213))
