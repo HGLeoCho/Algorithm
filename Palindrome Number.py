@@ -90,6 +90,38 @@ print(p.isPalindrome(0))
 print(p.isPalindrome(2))
 print(p.isPalindrome(31213))
 
+#my another solution but bit slower
+class Solution3b:
+    def isPalindrome(self, x: int) -> bool:
+        numbers = []
+        increment = 10
+        if 0 <= x <= 9:
+            return True
+        elif x < 0 or (x % 10) == 0:
+            return False
+        else:
+            numbers.append(x % increment) # first number
+        while increment < x:
+            numbers.append(int((x/increment) % 10))
+            increment *= 10
+        if numbers[::-1] == numbers:
+            return True
+        else:
+            return False
+'''
+Accepted	94 ms	14 MB	python3
+'''
+
 # Best Solution without using string
 class Solution4:
-    
+    def isPalindrome(self, x: int) -> bool:
+	if x < 0 or (x > 0 and x%10 == 0):   # if x is negative, return False. if x is positive and last digit is 0, that also cannot form a palindrome, return False.
+		return False
+	
+	result = 0
+	while x > result:
+		result = result * 10 + x % 10
+		x = x // 10
+		
+	return True if (x == result or x == result // 10) else False
+
