@@ -51,7 +51,30 @@ class Solution:
             return True
      
 # BEST solution with string
-class Solution:
+class Solution2:
     def isPalindrome(self, x: int) -> bool:
         if str(x)[::-1] == str(x):
             return True   
+
+# my solution without string usage
+class Solution3:
+        def isPalindrome(self, x: int) -> bool:
+        numbers = []
+        keeplooping = True
+        increment = 10
+        if 0 <= x <= 9:
+            return True
+        elif x < 0 or (x % 10) == 0:
+            return False
+        else:
+            numbers.append(x % increment) # first number
+        while keeplooping:
+            if increment > x:
+                keeplooping = False
+            else:
+                numbers.append(int((x/increment) % 10))
+                increment *= 10
+        if numbers[::-1] == numbers:
+            return True
+        else:
+            return False
