@@ -63,3 +63,11 @@ Constraints:
 class Solution:
     def romanToInt(self, s: str) -> int:
         
+        
+        
+p = Solution()
+print(p.romanToInt('MCMXCIV'))
+print(p.romanToInt('LVIII'))
+print(p.romanToInt('IX'))
+print(p.romanToInt('MCVI'))        
+        
