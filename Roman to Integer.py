@@ -85,8 +85,9 @@ class Solution:
         return result
         
 p = Solution()
-print(p.romanToInt('MCMXCIV'))
-print(p.romanToInt('LVIII'))
-print(p.romanToInt('IX'))
-print(p.romanToInt('MCVI'))        
+print(p.romanToInt('MCMXCIV'))  # 1994
+print(p.romanToInt('LVIII'))    # 58
+print(p.romanToInt('IX'))       # 9
+print(p.romanToInt('MCVI'))     # 1106
+print(p.romanToInt('V'))        # 5
         
