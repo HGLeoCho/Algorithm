@@ -51,6 +51,14 @@ def my_bin(num):
 print(my_bin(16))
 
 # binary conversion I found on stack overflow
+# problem is 0 is not represented as 0
+def decimalToBinary(value):
+    if value < 0:  # Base case if number is a negative
+        return 'Not positive'
+    elif value == 0:  # Base case if number is zero
+        return ''
+    else:
+        return decimalToBinary(value // 2) + str(value % 2)
 
 class Solution:
     def countBits(self, n: int) -> list[int]:
