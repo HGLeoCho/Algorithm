@@ -46,11 +46,21 @@ class Solution:
             return False
         else:
             for i in range(len(s)):
-                for j in range(i+1,len(s),2):
-                    if dick[s[i]] + dick[s[j]] == 10 and j not in exclude_index:
-                        exclude_index.extend([j,i])
+                if dick[s[i]] < 5:
+                    for j in range(i + 1, len(s), 2):
+                        if dick[s[i]] + dick[s[j]] == 10 and j not in exclude_index:
+                            print(i, j, dick[s[i]], dick[s[j]])
+                            exclude_index.extend([j, i])
+                            break
             for i in range(len(s)):
-                
+                if i not in exclude_index:
+                    return False
+            return True
+
 
 s = Solution()
-print(s.isValid())
+print(s.isValid('[][]'))
+print(s.isValid('[({])}'))
+print(s.isValid('(){}}{'))
+print(s.isValid('()[]{}'))
+print(s.isValid('[{()}]'))
