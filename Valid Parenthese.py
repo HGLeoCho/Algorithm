@@ -64,3 +64,32 @@ print(s.isValid('[({])}'))
 print(s.isValid('(){}}{'))
 print(s.isValid('()[]{}'))
 print(s.isValid('[{()}]'))
+
+class Solution1:
+    def isValid(self, s: str) -> bool:
+        result = []
+        dick = {']': '[', '}': '{', ')': '('}
+        for v in s:
+            if v in dick:
+                if result and result[-1] == dick[v]:
+                    result.pop()
+                else:
+                    return False
+            else:
+                result.append(v)
+        return True if not result else False
+
+s = Solution1()
+print(s.isValid('[][]'))
+print(s.isValid('[({])}'))
+print(s.isValid('([][][][]{{}})'))
+print(s.isValid('(){}}{'))
+print(s.isValid('()[]{}'))
+print(s.isValid('[{()}]'))
+    
+'''
+Success
+Details
+Runtime: 32 ms, faster than 69.30% of Python3 online submissions for Valid Parentheses.
+Memory Usage: 14 MB, less than 96.64% of Python3 online submissions for Valid Parentheses.
+'''
