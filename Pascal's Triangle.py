@@ -21,5 +21,29 @@ Constraints:
 
 
 class Solution:
-    def generate(self, numRows: int) -> List[List[int]]:
-        
+    def generate(self, numRows: int) -> list[list[int]]:
+        result = [[1]]
+        for i in range(1,numRows):
+            result += [list(map(lambda x,y: x+y, result[-1] + [0], [0] + result[-1]))]
+        return result[:numRows]
+
+
+''' 
+Success
+Details
+Runtime: 28 ms, faster than 86.50% of Python3 online submissions for Pascal's Triangle.
+Memory Usage: 14.4 MB, less than 25.06% of Python3 online submissions for Pascal's Triangle.
+Next challenges:
+Pascal's Triangle II
+Show off your acceptance:
+Time Submitted
+	
+Status
+	
+Runtime
+	
+Memory
+	
+Language
+12/11/2021 19:50	Accepted	28 ms	14.4 MB	python3
+'''
