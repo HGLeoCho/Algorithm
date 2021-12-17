@@ -43,10 +43,7 @@ class Solution:
         for i in range(0,len(numbers)):
             for j in range(i + 1,len(numbers)):
                 if numbers[i] + numbers[j] == target:
-                    result.append(i)
-                    result.append(j)
-                    break
-        return result
+                    return [i,j]
 # ^ O(n^2) solution. not adequate
        
 '''
