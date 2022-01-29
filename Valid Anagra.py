@@ -27,7 +27,11 @@ Constraints:
 
 '''
 
+
+
 # neetcode solution
+# Time complexity O(n). (actually O(s + t) but constants really dont count in Big O notation
+# Space complexity O(1)
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
@@ -43,3 +47,15 @@ class Solution:
                 return False
 
         return True
+
+# Sort and solve. not much efficient as above or below
+# Time complexity O(n^2).
+# Space complexity O(1)
+class Solution1:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return sorted(s) == sorted(t)
+       
+# one liner. cool but not interview acceptable
+class Solution2:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return Counter(s) == Counter(t)
