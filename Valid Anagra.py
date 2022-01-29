@@ -27,9 +27,7 @@ Constraints:
 
 '''
 
-class Solution {
-public:
-    bool isAnagram(string s, string t) {
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
         
-    }
-};
