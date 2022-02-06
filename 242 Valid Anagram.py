@@ -27,12 +27,36 @@ Constraints:
 
 '''
 
+test1 = {'a': 0,    'b': 2,    'c': 1}
+print(sum(test1.values()))  # 3
 
+for v in iter(test1.values()):
+    print(v)
+'''
+0
+2
+1
+'''
+
+# my solution
+# Time complexity : O(n). O(s + t + 26) -> O(n)
+# Space complexity : O(1)
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        res = {}
+        for letter in s:
+            res[letter] = 1 + res.get(letter, 0)
+        for letter in t:
+            if letter not in res:
+                return False
+            else:
+                res[letter] -= 1
+        return not any(v > 0 for v in iter(res.values()))
 
 # neetcode solution
 # Time complexity O(n). (actually O(s + t) but constants really dont count in Big O notation
 # Space complexity O(1)
-class Solution:
+class Solution0:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
