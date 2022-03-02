@@ -12,11 +12,22 @@ public class Main {
 //        int[] result = t1.twoPointerSolution(new int[] {3,3}, 6);
 //        System.out.println(result[0] + " " + result[1]);
 
-        TwoSumII t2 = new TwoSumII();
-        int[] result = t2.twoSum(new int[] {-2,0,2}, -2);
-        System.out.println("result is : [ " + result[0] + ", " + result[1] + " ]");
+//        TwoSumII t2 = new TwoSumII();
+//        int[] result = t2.twoSum(new int[] {-2,0,2}, -2);
+//        System.out.println("result is : [ " + result[0] + ", " + result[1] + " ]");
+
+
+
+        /*
+        BestTimeToBuyAndSellStock
+         */
+        BestTimeToBuyAndSellStock stock1 = new BestTimeToBuyAndSellStock();
+        System.out.println(stock1.twoPointerSolution(new int[] {2,1,2,1,0,1,2}));               // 2
+        System.out.println(stock1.twoPointerSolution(new int[] {2,4,1}));               // 2
+        System.out.println(stock1.twoPointerSolution(new int[] {2,1,2,0,1}));           // 1
     }
 }
+
 
 
 class TwoSum{
@@ -146,4 +157,25 @@ Constraints:
         return new int[] {1, 2};
 
     }
+}
+
+class BestTimeToBuyAndSellStock {
+
+    public static int twoPointerSolution(int[] prices){
+
+        int l = 0;
+        int r = 1;
+        int max_profit = 0;
+
+        while(r < prices.length){
+            if (max_profit < (prices[r] - prices[l])) {
+                max_profit = Math.max(max_profit, prices[r] - prices[l]);
+            } else if(((prices[r] - prices[l]) < 0)){
+                l = r;
+            }
+            r++;
+        }
+        return max_profit;
+    }
+
 }
