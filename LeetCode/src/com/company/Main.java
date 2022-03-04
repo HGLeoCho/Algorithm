@@ -31,9 +31,16 @@ public class Main {
         ContainsDuplicate
          */
 
-        ContainsDuplicate cd = new ContainsDuplicate();
-        System.out.println(cd.hashmapSolution(new int[] {1,1,1,3,3,4,3,2,4,2}));
-        System.out.println(cd.hashsetSolution(new int[] {1,1,1,3,3,4,3,2,4,2}));
+//        ContainsDuplicate cd = new ContainsDuplicate();
+//        System.out.println(cd.hashmapSolution(new int[] {1,1,1,3,3,4,3,2,4,2}));
+//        System.out.println(cd.hashsetSolution(new int[] {1,1,1,3,3,4,3,2,4,2}));
+
+
+        /*
+        Product of Array Except Self
+         */
+        ProductofArrayExceptSelf pr = new ProductofArrayExceptSelf();
+        System.out.println(Arrays.toString(pr.solution(new int[] {1,2,3,4})));
     }
 }
 
@@ -245,5 +252,41 @@ Constraints:
             }
         }
         return false;
+    }
+}
+
+
+class ProductofArrayExceptSelf{
+    public static int[] solution(int[] nums){
+        /*
+       1 [1,2,3,4] 1
+         [1,1,2,6]
+        [24,12,4,1]
+
+        [24,12,8,6]
+        explaination: lets pick 2 in the list. in order to set product of all numbers except 2 you need to get product of all numbers on left side of 2
+        and product of all numbers on right side of 2. in this case it will be shown as this
+        left side : (1) * 1
+        right side : 3 * 4 * (1)
+        pranthesis 1 is inserted in order to prevent left/right most number to become 0
+        so to make the solution o(n) in time complexity, we get product from left side first and right later. which makes it O(n + n) or O(2n)
+        constants really do not count in terms of Big O notation, so we can say its O(N) complexity
+         */
+        int[] result = new int[nums.length];
+        //product of left side
+        for (int i = 0, k = 1; i < nums.length; i++){
+            result[i] = k;
+                    k *= nums[i];
+        }
+        System.out.println(Arrays.toString(result));
+        System.out.println(Arrays.toString(nums));
+        //product of right side
+        for (int i = nums.length - 1, k = 1; i >= 0; i--){
+            result[i] *= k;
+            k *= nums[i];
+        }
+        System.out.println(Arrays.toString(result));
+
+        return result;
     }
 }
