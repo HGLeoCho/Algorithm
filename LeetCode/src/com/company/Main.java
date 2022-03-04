@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -21,10 +22,18 @@ public class Main {
         /*
         BestTimeToBuyAndSellStock
          */
-        BestTimeToBuyAndSellStock stock1 = new BestTimeToBuyAndSellStock();
-        System.out.println(stock1.twoPointerSolution(new int[] {2,1,2,1,0,1,2}));               // 2
-        System.out.println(stock1.twoPointerSolution(new int[] {2,4,1}));               // 2
-        System.out.println(stock1.twoPointerSolution(new int[] {2,1,2,0,1}));           // 1
+//        BestTimeToBuyAndSellStock stock1 = new BestTimeToBuyAndSellStock();
+//        System.out.println(stock1.twoPointerSolution(new int[] {2,1,2,1,0,1,2}));               // 2
+//        System.out.println(stock1.twoPointerSolution(new int[] {2,4,1}));               // 2
+//        System.out.println(stock1.twoPointerSolution(new int[] {2,1,2,0,1}));           // 1
+
+        /*
+        ContainsDuplicate
+         */
+
+        ContainsDuplicate cd = new ContainsDuplicate();
+        System.out.println(cd.hashmapSolution(new int[] {1,1,1,3,3,4,3,2,4,2}));
+        System.out.println(cd.hashsetSolution(new int[] {1,1,1,3,3,4,3,2,4,2}));
     }
 }
 
@@ -178,4 +187,63 @@ class BestTimeToBuyAndSellStock {
         return max_profit;
     }
 
+}
+
+class ContainsDuplicate {
+/*
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+Example 1:
+Input: nums = [1,2,3,1]
+Output: true
+
+Example 2:
+Input: nums = [1,2,3,4]
+Output: false
+
+Example 3:
+Input: nums = [1,1,1,3,3,4,3,2,4,2]
+Output: true
+
+
+
+Constraints:
+    1 <= nums.length <= 105
+    -109 <= nums[i] <= 109
+ */
+    // HashMap Solution. uses less memory than HashSet solution (6 ms	54.6 MB)
+    public static boolean hashmapSolution(int[] nums){
+        Map<Integer, Integer> numCounter = new HashMap<>();
+
+        for (int i = 0; i<nums.length; i++){
+            if (numCounter.containsKey(nums[i])){
+                return true;
+            } else {
+                numCounter.put(nums[i],0);
+            }
+        }
+        return false;
+    }
+
+    // HashSet method O(n), O(n) (9 ms	68.7 MB)
+    public static boolean hashsetSolution(int[] nums){
+        final HashSet <Integer> sets = new HashSet<>(); // good programming practice to put final. final means we don't want distinct point to another Set instance. But the content of distinct can be modified.
+        for (int num : nums){
+            if (!sets.add(num)){      // HashSet.add() returns true is there is a duplicated value !
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // sort method O(n log n), O(1) (26 ms	71.3 MB)
+    public static boolean sortSolution(int[] nums){
+        Arrays.sort(nums);
+        for (int i = 1; i < nums.length; i++){
+            if(nums[i-1] == nums[i]){
+                return true;
+            }
+        }
+        return false;
+    }
 }
