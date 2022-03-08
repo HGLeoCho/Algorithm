@@ -42,8 +42,11 @@ public class Main {
 
         /* Maximum Subarray */
         MaximumSubarray ms = new MaximumSubarray();
-        System.out.println(ms.solution2(new int[] {5,4,-1,7,8}));
-        System.out.println(ms.solution2(new int[] {-2,1,-3,4,-1,2,1,-5,4}));
+        System.out.println(ms.solution3(new int[] {5,4,-1,7,8}));       // 23
+        System.out.println(ms.solution3(new int[] {-2,1,-3,4,-1,2,1,-5,4}));        // 6
+        System.out.println(ms.solution3(new int[] {-2,1}));         // 1
+        System.out.println(ms.solution3(new int[] {1,2}));          // 3
+        System.out.println(ms.solution3(new int[] {-2,-1}));        // -1
     }
 }
 
@@ -335,28 +338,28 @@ class MaximumSubarray{
 
     // 5,4,-1,7,8
     public int solution2(int[] nums){
-        System.out.println(nums.length);
-        int l = 0;
-        int r = 1;
-        int max_profit = Integer.MIN_VALUE;
-        int sum = nums[l];
+        int n = nums.length;
+        int[] dp = new int[n]; //dp[i] means the maximum subarray ending with A[i];
+        dp[0] = nums[0];
+        int max = dp[0];
 
-        while(l < nums.length){
-            r = l + 1;
-            while(r < nums.length){
-                sum += nums[r];
-                if (max_profit < sum) {
-                    max_profit = sum;
-                }
-                System.out.println(sum + " " + max_profit + " " + l + " " + r);
-                if(r >= nums.length - 1){
-                    break;
-                } else
-                    r++;
-            }
-            l++;
-            sum = nums[l];
+        for(int i = 1; i < n; i++){
+            dp[i] = nums[i] + (dp[i - 1] > 0 ? dp[i - 1] : 0);
+            max = Math.max(max, dp[i]);
         }
-        return max_profit;
+
+        return max;
+
+    }
+
+    // non DP solution
+    public int solution3(int[] nums){
+        int max = Integer.MIN_VALUE, sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum = (sum < 0 ? nums[i] : nums[i] + sum);
+            max = Math.max(max, sum);
+        }
+        return max;
+
     }
 }
