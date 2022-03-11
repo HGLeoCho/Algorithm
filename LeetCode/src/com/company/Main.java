@@ -56,11 +56,11 @@ public class Main {
 //        System.out.println(MPS.solution2(new int[] {-2,0,-4,-3,0,-3,7}));   // 12
         /* Find Minimum in Roated Sorted Array */
         FindMinimuminRoatedSortedArray FMRSA = new FindMinimuminRoatedSortedArray();
-//        System.out.println(FMRSA.solution1(new int[] {3,4,5,1,2}));         // 1
+        System.out.println(FMRSA.solution1(new int[] {3,4,5,1,2}));         // 1
         System.out.println(FMRSA.solution1(new int[] {2,3,1}));     // 0
-        System.out.println(FMRSA.solution1(new int[] {11,13,15,17}));       // 11
+        System.out.println(FMRSA.solution1(new int[] {1,2,3}));       // 11
         System.out.println(FMRSA.solution1(new int[] {2,0,1}));             // 0
-        System.out.println(FMRSA.solution1(new int[] {0,1}));               // 0
+        System.out.println(FMRSA.solution1(new int[] {3,4,5,6,1,2}));               // 0
 
 //        System.out.println(FMRSA.recursion(new int[] {11,13,15,17}));
 
@@ -509,38 +509,17 @@ Constraints:
 class FindMinimuminRoatedSortedArray{
 
     public int solution1(int[] nums){
-        //3,4,5,1,2
-
-        if (nums.length == 1) return nums[0];
-        if (nums.length == 2) return Math.min(nums[0], nums[1]);
-
 
         int l = 0;
         int r = nums.length - 1;
         int m;
 
-        while(r > l){
-
+        while(l < r-1){
             m = (r + l) / 2;
-
-            if (l == m) return nums[r];
-            else if (nums[r] < nums[m]) l = m;
-            else if (nums[l] < nums[m]) r = m;
-            else return nums[m];
+            if (nums[r] < nums[m]) l = m ;
+            else r = m;
         }
-        return Integer.MIN_VALUE;
-    }
-
-    public int recursion(int[] arr){
-        System.out.println("received arr is : " + Arrays.toString(arr));
-        if (arr.length <= 2) return 2;
-        if (arr.length > 2){
-            int m = arr.length/2;
-            int[] new_nums = Arrays.copyOfRange(arr, 0, m);
-            System.out.println("new num set to : " + Arrays.toString(new_nums));
-            recursion(new_nums);
-        }
-        return arr[1];
+        return Math.min(nums[l], nums[r]);
     }
 
 }
