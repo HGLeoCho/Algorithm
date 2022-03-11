@@ -41,12 +41,29 @@ public class Main {
 //        System.out.println(Arrays.toString(pr.solution(new int[] {1,2,3,4})));
 
         /* Maximum Subarray */
-        MaximumSubarray ms = new MaximumSubarray();
-        System.out.println(ms.solution3(new int[] {5,4,-1,7,8}));       // 23
-        System.out.println(ms.solution3(new int[] {-2,1,-3,4,-1,2,1,-5,4}));        // 6
-        System.out.println(ms.solution3(new int[] {-2,1}));         // 1
-        System.out.println(ms.solution3(new int[] {1,2}));          // 3
-        System.out.println(ms.solution3(new int[] {-2,-1}));        // -1
+//        MaximumSubarray ms = new MaximumSubarray();
+//        System.out.println(ms.solution3(new int[] {5,4,-1,7,8}));       // 23
+//        System.out.println(ms.solution3(new int[] {-2,1,-3,4,-1,2,1,-5,4}));        // 6
+//        System.out.println(ms.solution3(new int[] {-2,1}));         // 1
+//        System.out.println(ms.solution3(new int[] {1,2}));          // 3
+//        System.out.println(ms.solution3(new int[] {-2,-1}));        // -1
+
+        /* Maximum Product Subarray */
+//        MaximumProductSubarray MPS = new MaximumProductSubarray();
+//        System.out.println(MPS.solution2(new int[] {2,3,-2,4}));        // 6
+//        System.out.println(MPS.solution2(new int[] {-2,0,-1}));         // 0
+//        System.out.println(MPS.solution2(new int[] {-2,-2,0,-1,-5}));       // 5
+//        System.out.println(MPS.solution2(new int[] {-2,0,-4,-3,0,-3,7}));   // 12
+        /* Find Minimum in Roated Sorted Array */
+        FindMinimuminRoatedSortedArray FMRSA = new FindMinimuminRoatedSortedArray();
+//        System.out.println(FMRSA.solution1(new int[] {3,4,5,1,2}));         // 1
+        System.out.println(FMRSA.solution1(new int[] {2,3,1}));     // 0
+        System.out.println(FMRSA.solution1(new int[] {11,13,15,17}));       // 11
+        System.out.println(FMRSA.solution1(new int[] {2,0,1}));             // 0
+        System.out.println(FMRSA.solution1(new int[] {0,1}));               // 0
+
+//        System.out.println(FMRSA.recursion(new int[] {11,13,15,17}));
+
     }
 }
 
@@ -123,7 +140,6 @@ class TwoSum{
         return (new int[] {l, r});
     }
 }
-
 
 class TwoSumII{
 /*
@@ -362,4 +378,169 @@ class MaximumSubarray{
         return max;
 
     }
+}
+
+class MaximumProductSubarray{
+    /*
+    Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+The test cases are generated so that the answer will fit in a 32-bit integer.
+A subarray is a contiguous subsequence of the array.
+
+
+Example 1:
+Input: nums = [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+
+Example 2:
+Input: nums = [-2,-2,0,-1,-5]
+Output: 5
+
+Example 3:
+Input: nums = [-2,0,-1]
+Output: 0
+Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+
+Constraints:
+    1 <= nums.length <= 2 * 104
+    -10 <= nums[i] <= 10
+    The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+     */
+
+    //-2,-2,0,-1,-5
+    // 1,-2,3
+    // 1,-2,3,-4
+    public int solution1(int[] nums){
+        int sum = 1;
+        int sum_until = 0;
+        int temp_negative = 0;
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < nums.length; i++){
+            if ( nums[i] == 0){
+                sum_until = sum;
+                sum = 1;
+                continue;
+            }
+            if ( nums[i] < 0 && sum_until > 1 && temp_negative < 0){
+                sum = sum - (sum_until * temp_negative);
+                sum = sum_until * temp_negative * sum * nums[i];
+                sum_until = 0;
+                temp_negative = 0;
+                continue;
+            }
+            sum *= nums[i];
+            max = Math.max(max, sum);
+
+            if ( nums[i] < 0) {
+                sum_until = sum;
+                temp_negative = nums[i];
+            }
+
+        }
+        return max;
+    }
+
+
+    /*
+    you find max product from left side then find max product from right side.
+
+    there only 2 things to consider in the question
+    - 0 values in the array
+    - odd number of negative value
+
+    for 0 values in the array
+    -> we can easily solve this issue by setting current sum back to 1 when there is 0
+    if (sum == 0) sum = 1;
+
+    for odd number of negative values
+    -> when there is odd number of negative value, it is just matter of comparison between left side and right side.
+
+    example)
+    [2,3,-1,2,4] -> 2 * 3 vs 2 * 4
+
+    */
+    public int solution2(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int sum = 1;
+
+        for (int i = 0; i < nums.length; i++){
+            sum *= nums[i];
+            max = Math.max(sum, max);
+            if (sum == 0) sum = 1;
+        }
+        sum = 1;
+        for (int i = nums.length - 1; i >= 0; i--){
+            sum *= nums[i];
+            max = Math.max(sum, max);
+            if (sum == 0) sum = 1;
+        }
+
+        return max;
+    }
+
+
+    /*
+    similar thinking as above. however, in this solution we iterate only once and make the process time even faster
+    Also, instead of thinking about right side this time we consider other side by remembering Minimum value.
+     */
+    public int solution3(int[] nums){
+        int n = nums.length;
+        if (n == 0) {
+            throw new IllegalArgumentException();
+        }
+
+        int curMax = nums[0];
+        int curMin = nums[0];
+        int ans = curMax;
+
+        for (int i = 1; i < n; i++) {
+            int tmp = curMax;
+            curMax = Math.max(tmp*nums[i], Math.max(curMin*nums[i], nums[i]));
+            curMin = Math.min(tmp*nums[i], Math.min(curMin*nums[i], nums[i]));
+
+            ans = Math.max(ans, curMax);
+        }
+
+        return ans;
+    }
+}
+
+class FindMinimuminRoatedSortedArray{
+
+    public int solution1(int[] nums){
+        //3,4,5,1,2
+
+        if (nums.length == 1) return nums[0];
+        if (nums.length == 2) return Math.min(nums[0], nums[1]);
+
+
+        int l = 0;
+        int r = nums.length - 1;
+        int m;
+
+        while(r > l){
+
+            m = (r + l) / 2;
+
+            if (l == m) return nums[r];
+            else if (nums[r] < nums[m]) l = m;
+            else if (nums[l] < nums[m]) r = m;
+            else return nums[m];
+        }
+        return Integer.MIN_VALUE;
+    }
+
+    public int recursion(int[] arr){
+        System.out.println("received arr is : " + Arrays.toString(arr));
+        if (arr.length <= 2) return 2;
+        if (arr.length > 2){
+            int m = arr.length/2;
+            int[] new_nums = Arrays.copyOfRange(arr, 0, m);
+            System.out.println("new num set to : " + Arrays.toString(new_nums));
+            recursion(new_nums);
+        }
+        return arr[1];
+    }
+
 }
