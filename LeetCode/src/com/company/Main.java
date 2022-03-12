@@ -56,11 +56,11 @@ public class Main {
 //        System.out.println(MPS.solution2(new int[] {-2,0,-4,-3,0,-3,7}));   // 12
         /* Find Minimum in Roated Sorted Array */
         FindMinimuminRoatedSortedArray FMRSA = new FindMinimuminRoatedSortedArray();
-        System.out.println(FMRSA.solution1(new int[] {3,4,5,1,2}));         // 1
-        System.out.println(FMRSA.solution1(new int[] {2,3,1}));     // 0
-        System.out.println(FMRSA.solution1(new int[] {1,2,3}));       // 11
-        System.out.println(FMRSA.solution1(new int[] {2,0,1}));             // 0
-        System.out.println(FMRSA.solution1(new int[] {3,4,5,6,1,2}));               // 0
+        System.out.println(FMRSA.solution0(new int[] {3,4,5,1,2}));         // 1
+        System.out.println(FMRSA.solution0(new int[] {2,3,1}));             // 1
+        System.out.println(FMRSA.solution0(new int[] {1,2,3}));             // 1
+        System.out.println(FMRSA.solution0(new int[] {2,0,1}));             // 0
+        System.out.println(FMRSA.solution0(new int[] {3,4,5,6,1,2}));       // 1
 
 //        System.out.println(FMRSA.recursion(new int[] {11,13,15,17}));
 
@@ -507,6 +507,25 @@ Constraints:
 }
 
 class FindMinimuminRoatedSortedArray{
+    /*
+    Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+
+    [4,5,6,7,0,1,2] if it was rotated 4 times.
+    [0,1,2,4,5,6,7] if it was rotated 7 times.
+
+    Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+    Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+    You must write an algorithm that runs in O(log n) time.
+     */
+
+    // quadratic solution NOT APPLICABLE
+    public int solution0(int[] nums){
+        int min = nums[0];
+        for (int i = 1; i < nums.length; i++){
+            min = Math.min(min, nums[i]);
+        }
+        return min;
+    }
 
     public int solution1(int[] nums){
 
