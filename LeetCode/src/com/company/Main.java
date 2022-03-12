@@ -55,14 +55,21 @@ public class Main {
 //        System.out.println(MPS.solution2(new int[] {-2,-2,0,-1,-5}));       // 5
 //        System.out.println(MPS.solution2(new int[] {-2,0,-4,-3,0,-3,7}));   // 12
         /* Find Minimum in Roated Sorted Array */
-        FindMinimuminRoatedSortedArray FMRSA = new FindMinimuminRoatedSortedArray();
-        System.out.println(FMRSA.solution0(new int[] {3,4,5,1,2}));         // 1
-        System.out.println(FMRSA.solution0(new int[] {2,3,1}));             // 1
-        System.out.println(FMRSA.solution0(new int[] {1,2,3}));             // 1
-        System.out.println(FMRSA.solution0(new int[] {2,0,1}));             // 0
-        System.out.println(FMRSA.solution0(new int[] {3,4,5,6,1,2}));       // 1
-
+//        FindMinimuminRoatedSortedArray FMRSA = new FindMinimuminRoatedSortedArray();
+//        System.out.println(FMRSA.solution0(new int[] {3,4,5,1,2}));         // 1
+//        System.out.println(FMRSA.solution0(new int[] {2,3,1}));             // 1
+//        System.out.println(FMRSA.solution0(new int[] {1,2,3}));             // 1
+//        System.out.println(FMRSA.solution0(new int[] {2,0,1}));             // 0
+//        System.out.println(FMRSA.solution0(new int[] {3,4,5,6,1,2}));       // 1
 //        System.out.println(FMRSA.recursion(new int[] {11,13,15,17}));
+
+        /*Search in Rotated Sorted Array*/
+        SearchinRotatedSortedArray SRSA = new SearchinRotatedSortedArray();
+        System.out.println(SRSA.solution2(new int[] {3,4,5,6,1,2}, 1));     // 4
+        System.out.println(SRSA.solution2(new int[] {4,5,6,7,0,1,2}, 3));     // -1
+        System.out.println(SRSA.solution2(new int[] {2,3,1}, 2));     // 0
+        System.out.println(SRSA.solution2(new int[] {2,3,1}, 1));     // 2
+        System.out.println(SRSA.solution2(new int[] {5,1,3}, 3));     // 2
 
     }
 }
@@ -541,4 +548,44 @@ class FindMinimuminRoatedSortedArray{
         return Math.min(nums[l], nums[r]);
     }
 
+}
+
+class SearchinRotatedSortedArray{
+
+    //quadratic solution. Time O(N^2). Not Applicable as a solution since author want O(log n)
+    // but still damn fast and good enough. [Runtime: 0 ms, faster than 100.00% of Java online submissions for Search in Rotated Sorted Array.]
+    public int solution1(int[] nums, int target){
+        for(int i = 0; i < nums.length; i++){
+            if (nums[i] == target) return i;
+        }
+        return -1;
+    }
+
+    public int solution2(int[] nums, int target){
+
+        int l = 0;
+        int r = nums.length - 1;
+        int m;
+
+        while(l <= r){
+            m = l + ((r - l) / 2);
+
+            if (nums[m] == target) return m;
+
+            // we look at left side to middle point.
+            // if its less than middle point, we can safely say that left to middle is sorted
+            // if not, right side is sorted
+            if (nums[l] <= nums[m]) {
+               if (nums[l] <= target && target < nums[m]) r = m - 1;
+               else l = m + 1;
+            }
+            else {
+                if (nums[m] < target && target <= nums[r]) l = m + 1;
+                else r = m - 1;
+            }
+        }
+////        if (r - l == 1) return (nums[r] == target) ? r : ((nums[l] == target) ? l : -1);
+//        if (r == l) return (nums[r] == target) ? r : -1;
+        return -1;
+    }
 }
