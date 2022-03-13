@@ -64,12 +64,31 @@ public class Main {
 //        System.out.println(FMRSA.recursion(new int[] {11,13,15,17}));
 
         /*Search in Rotated Sorted Array*/
-        SearchinRotatedSortedArray SRSA = new SearchinRotatedSortedArray();
-        System.out.println(SRSA.solution2(new int[] {3,4,5,6,1,2}, 1));     // 4
-        System.out.println(SRSA.solution2(new int[] {4,5,6,7,0,1,2}, 3));     // -1
-        System.out.println(SRSA.solution2(new int[] {2,3,1}, 2));     // 0
-        System.out.println(SRSA.solution2(new int[] {2,3,1}, 1));     // 2
-        System.out.println(SRSA.solution2(new int[] {5,1,3}, 3));     // 2
+//        SearchinRotatedSortedArray SRSA = new SearchinRotatedSortedArray();
+//        System.out.println(SRSA.solution2(new int[] {3,4,5,6,1,2}, 1));     // 4
+//        System.out.println(SRSA.solution2(new int[] {4,5,6,7,0,1,2}, 3));     // -1
+//        System.out.println(SRSA.solution2(new int[] {2,3,1}, 2));     // 0
+//        System.out.println(SRSA.solution2(new int[] {2,3,1}, 1));     // 2
+//        System.out.println(SRSA.solution2(new int[] {5,1,3}, 3));     // 2
+        /* Three Sum */
+//        int[] arr = new int[] {3,2,1};
+//        Arrays.sort(arr);
+//        System.out.println(Arrays.toString(arr));
+//        System.exit(0);
+//
+//        List<List<Integer>> result = new ArrayList<>();
+//        result.add(new ArrayList<>());
+//        result.add(new ArrayList<>());
+//        result.get(0).add(1);
+//        result.get(0).add(2);
+//        result.get(1).add(4);
+//        System.out.println(result);
+
+        ThreeSum TS = new ThreeSum();
+        System.out.println(TS.solution2(new int[] {-1,0,1,2,-1,-4}));   // [[-1, -1, 2], [-1, 0, 1]]
+        System.out.println(TS.solution2(new int[] {0,0,0}));            // [[0,0,0]]
+        System.out.println(TS.solution2(new int[] {0,0,0,0}));          // [[0,0,0]]
+
 
     }
 }
@@ -587,5 +606,57 @@ class SearchinRotatedSortedArray{
 ////        if (r - l == 1) return (nums[r] == target) ? r : ((nums[l] == target) ? l : -1);
 //        if (r == l) return (nums[r] == target) ? r : -1;
         return -1;
+    }
+}
+
+class ThreeSum{
+
+    // Accepted	31 ms	59 MB	java
+    public List<List<Integer>> solution1(int[] nums){
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        int l, r, check_l, check_r;
+
+        for(int i = 0; i < nums.length - 2; i++){       // i until num.length-2 because you need at least 3 numbers
+            l = i + 1;
+            r = nums.length - 1;
+            check_l = 0;
+            check_r = 0;
+            while(l < r){
+                if ((nums[i] + nums[l] + nums[r]) == 0 && check_l != l && check_r != r){
+                    result.add(Arrays.asList(nums[i],nums[l],nums[r]));
+                    l++;
+                    r--;
+                    continue;
+                }
+                else if ((nums[i] + nums[l] + nums[r]) > 0) r--;
+                else l++;
+            }
+            while(i < nums.length - 1 && nums[i] == nums[i + 1]){
+                i++;
+            }
+        }
+
+        return result;
+    }
+
+    // using HashSet to avoid duplicates
+    // Accepted	475 ms	46.5 MB	java  <- notice its much slow sine HashSet requires time to find duplicates(in multi-dimension array its worse)
+    public List<List<Integer>> solution2(int[] nums){
+        Set<List<Integer>> result = new HashSet<>();
+        Arrays.sort(nums);
+        int l, r, sum;
+
+        for (int i = 0; i < nums.length - 2; i++){          // i until num.length-2 because you need at least 3 numbers
+            l = i + 1;
+            r = nums.length - 1;
+            while(l < r){
+                sum = nums[i] + nums[l] + nums[r];
+                if (sum == 0) result.add(Arrays.asList(nums[i],nums[l++],nums[r--])); // increment or decrement afterwards
+                else if (sum < 0) l++;
+                else r--;
+            }
+        }
+        return new ArrayList<>(result);
     }
 }
