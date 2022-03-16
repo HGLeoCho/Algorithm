@@ -84,17 +84,29 @@ public class Main {
 //        result.get(1).add(4);
 //        System.out.println(result);
 
-        ThreeSum TS = new ThreeSum();
-        System.out.println(TS.solution2(new int[] {-1,0,1,2,-1,-4}));   // [[-1, -1, 2], [-1, 0, 1]]
-        System.out.println(TS.solution2(new int[] {0,0,0}));            // [[0,0,0]]
-        System.out.println(TS.solution2(new int[] {0,0,0,0}));          // [[0,0,0]]
+//        ThreeSum TS = new ThreeSum();
+//        System.out.println(TS.solution2(new int[] {-1,0,1,2,-1,-4}));   // [[-1, -1, 2], [-1, 0, 1]]
+//        System.out.println(TS.solution2(new int[] {0,0,0}));            // [[0,0,0]]
+//        System.out.println(TS.solution2(new int[] {0,0,0,0}));          // [[0,0,0]]
 
+        /* Container With Most Water */
+//        ContainerWithMostWater CWMW = new ContainerWithMostWater();
+//        System.out.println(CWMW.solution1(new int[] {2,2,2,5,5,2,2,5,2}));  // 16 with index of 0 and 8
 
+        /*######## Binary #######*/
+
+        /* Decimal to Binary */
+        BinaryConverter BC = new BinaryConverter();
+        System.out.println(BC.decimalToBinary(32));
+
+        /* Sum of Two Integers */
+//        SumofTwoIntegers STI = new SumofTwoIntegers();
+//        System.out.println(STI.getSum(2,4));
     }
 }
 
 
-
+/* Arrays */
 class TwoSum{
     public static int[] quadraticSolution(int[] nums, int target) {
         System.out.println("function started");
@@ -658,5 +670,57 @@ class ThreeSum{
             }
         }
         return new ArrayList<>(result);
+    }
+}
+
+class ContainerWithMostWater{
+    public int solution1(int[] nums){
+        int result = 0;
+        int l = 0;
+        int r = nums.length - 1;
+        while(l < r){
+            result = Math.max(result, ((r - l) * Math.min(nums[l], nums[r])) );
+            if (nums[l] < nums[r]) l++;
+            else r--;
+        }
+        return result;
+    }
+}
+
+/* Binary */
+
+class BinaryConverter{
+    public String decimalToBinary(int num){
+        StringBuilder result = new StringBuilder();
+        int quotient = num;     // is quotient even right term? lol
+        int remainder;
+        while(quotient > 0){
+            remainder = quotient % 2;
+            quotient /= 2;
+            result.append(remainder);
+        }
+        return result.reverse().toString();
+    }
+}
+
+class SumofTwoIntegers{
+    /*
+    0   :       0
+    1   :       1
+    2   :       10
+    3   :       11
+    4   :       100
+    5   :       101
+    6   :       110
+    7   :       111
+    8   :       1000
+    9   :       1001
+    10  :       1010
+    * */
+
+
+    public int getSum(int a, int b){
+        int result = a << 1;
+        return result;
     }
 }
