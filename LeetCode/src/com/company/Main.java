@@ -98,6 +98,19 @@ public class Main {
         /* Decimal to Binary */
         BinaryConverter BC = new BinaryConverter();
         System.out.println(BC.decimalToBinary(32));
+        /*
+        2   :       10
+        3   :       11
+        4   :      100
+        5   :      101
+        6   :      110
+        */
+        System.out.println(2&3);        // 2. [AND] if both has 1 its 1, if not 0
+        System.out.println(2^3);        // 1. [XOR] if one side has 1 its 1, if not 0
+        System.out.println(2^4);        // 6. [XOR] if one side has 1 its 1, if not 0
+        System.out.println(2<<1);       // 4. [bit move 1 <] basically did multiplication by 2
+        System.out.println(3<<1);       // 6. [bit move 1 <] basically did multiplication by 2
+
 
         /* Sum of Two Integers */
 //        SumofTwoIntegers STI = new SumofTwoIntegers();
