@@ -95,26 +95,35 @@ public class Main {
 
         /*######## Binary #######*/
 
-        /* Decimal to Binary */
-        BinaryConverter BC = new BinaryConverter();
-        System.out.println(BC.decimalToBinary(32));
-        /*
-        2   :       10
-        3   :       11
-        4   :      100
-        5   :      101
-        6   :      110
-        */
-        System.out.println(2&3);        // 2. [AND] if both has 1 its 1, if not 0
-        System.out.println(2^3);        // 1. [XOR] if one side has 1 its 1, if not 0
-        System.out.println(2^4);        // 6. [XOR] if one side has 1 its 1, if not 0
-        System.out.println(2<<1);       // 4. [bit move 1 <] basically did multiplication by 2
-        System.out.println(3<<1);       // 6. [bit move 1 <] basically did multiplication by 2
+//        /* Decimal to Binary */
+//        BinaryConverter BC = new BinaryConverter();
+//        System.out.println(BC.decimalToBinary(32));
+//        /*
+//        2   :       10
+//        3   :       11
+//        4   :      100
+//        5   :      101
+//        6   :      110
+//        */
+//        System.out.println(2&3);        // 2. [AND] if both has 1 its 1, if not 0
+//        System.out.println(2^3);        // 1. [XOR] if one side has 1 its 1, if not 0
+//        System.out.println(2^4);        // 6. [XOR] if one side has 1 its 1, if not 0
+//        System.out.println(2<<1);       // 4. [bit move 1 <] basically did multiplication by 2
+//        System.out.println(3<<1);       // 6. [bit move 1 <] basically did multiplication by 2
+//
+//
+//        /* Sum of Two Integers */
+//        SumofTwoIntegers STI = new SumofTwoIntegers();
+//        System.out.println(STI.getSum(2,4));
 
 
-        /* Sum of Two Integers */
-        SumofTwoIntegers STI = new SumofTwoIntegers();
-        System.out.println(STI.getSum(2,4));
+        /*######## Dynamic Programming #######*/
+
+        ClimbingStairs CS = new ClimbingStairs();
+        System.out.println(CS.climbStairs(3));  // 3
+        System.out.println(CS.climbStairs(4));  // 5
+        System.out.println(CS.climbStairs(5));  // 8
+        System.out.println(CS.climbStairs(6));  // 13
     }
 }
 
@@ -782,5 +791,52 @@ class SumofTwoIntegers{
             b = c<<1;
         }
         return a;
+    }
+}
+
+
+
+// Dynamic Programming
+
+class ClimbingStairs{
+    /*
+    You are climbing a staircase. It takes n steps to reach the top.
+    Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+    Example 1:
+
+    Input: n = 2
+    Output: 2
+    Explanation: There are two ways to climb to the top.
+    1. 1 step + 1 step
+    2. 2 steps
+
+    Example 2:
+
+    Input: n = 3
+    Output: 3
+    Explanation: There are three ways to climb to the top.
+    1. 1 step + 1 step + 1 step
+    2. 1 step + 2 steps
+    3. 2 steps + 1 step
+
+    Constraints:
+    1 <= n <= 45
+    */
+    public int climbStairs(int n){
+        if ( n == 0 ) return 0;
+        if ( n == 1 ) return 1;
+        if ( n == 2 ) return 2;
+
+        int sum = 0;
+        int prev_num1 = 1;
+        int prev_num2 = 2;
+
+        for (int i = 2; i < n; i++){
+            sum = prev_num1 + prev_num2;
+            prev_num1 = prev_num2;
+            prev_num2 = sum;
+        }
+        return sum;
     }
 }
